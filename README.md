@@ -1,18 +1,18 @@
 <img src="img/icon_sipeed2.png" style="zoom: 80%;" />
 
-# SP_LoRa 模块使用说明
+# SP_LoRa Module User Guide
 
 [English](README.md)
 
-## 介绍
+## Introduce
 
-SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功率放大器的 LoRa 模块,它具有高性能和可靠性，采用 SP_MOD 进行连接。
+The SP_LoRa module uses M-XL8 module with LoRaTM modem and LoRa module with adjustable power amplifier. It has high performance and reliability and is connected by SP_MOD.
 
 <img src="img/sp_lora.jpg" alt="sp_lora" height="400" />
 
-*查看[模块规格书](doc/SP-LoRa规格书V1.0.pdf)获取更多特性信息*
+*See [Specification](doc/SP-LoRa规格书V1.0.pdf) for more information*
 
-## 接线方式
+## Mode connection
 
 <img src="img/connection.png" height="200">
 
@@ -27,17 +27,17 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
 |    1.8-6.3V     |  3.3V  |
 |       GND       |  GND   |
 
-## 引脚图
+## Pin figure
 
 <img src="img/sp_lora_b.jpg" height="250" />
 
-## MCU 配置
+## MCU configuration
 
-### IO 口配置
+### IO port configuration
 
-将 MCU 原理图对应的 IO 口配置为 SPI 功能引脚。
+Configure IO port corresponding to MCU as SPI function pin.
 
-* C 示例
+* C
 
   ```c
     fpioa_set_function(SPI_LORA_SX127X_CS_PIN_NUM, FUNC_SPI1_SS0);   // CS: 20
@@ -49,7 +49,7 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
     fpioa_set_function(SPI_LORA_SX127X_RST_PIN_NUM, FUNC_GPIOHS0 + SPI_LORA_SX127X_RST_GPIO_NUM); // RST: 7
   ```
 
-* MaixPy 示例
+* MaixPy
 
   ```python
     fm.register(20, fm.fpioa.GPIOHS20, force=True) # RST
@@ -61,31 +61,31 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
     # The other pins are configured at SPI initialization time
   ```
 
-### SPI 初始化
+### SPI initialization
 
-* C 示例
+* C
 
   ```c
   spi_init(SPI_DEVICE_1, SPI_WORK_MODE_0, SPI_FF_STANDARD, DATALENGTH, 0);
   ```
 
-* MaixPy 示例
+* MaixPy
 
   ```python
   spi1 = SPI(SPI.SPI1, mode=SPI.MODE_MASTER, baudrate=100 * 1000,
                polarity=0, phase=0, bits=8, firstbit=SPI.MSB, sck=21, mosi=8, miso = 15)
   ```
 
-## SP_LoRa 配置
+## SP_LoRa configuration
 
-### 使用方式
+### Usage
 
-* 流程
+* Process
 
-  1. 创建LoRa对象并初始化
-  2. 发送或者接收数据
+  1. Create the LoRa object and initialize it
+  2. Send or receive data
 
-* C 示例
+* C
 
   ```c
     sx1278_begin(&SX1278, SX1278_433MHZ, SX1278_POWER_17DBM, SX1278_LORA_SF_8,
@@ -103,7 +103,7 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
     }
   ```
   
-* MaixPy 示例
+* MaixPy
 
   ```python
     lora = SX127x(spi=spi1, pin_ss=cs)
@@ -115,15 +115,15 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
     ########sender###########
     # send(lora)
   ```
-*更多详细信息请参考[SX1276_77_78_79.pdf](SX1276_77_78_79.pdf).*
-## 运行环境
+*See [SX1276_77_78_79.pdf](SX1276_77_78_79.pdf) for more information.*
+## Runtime enviroments
 
-|  语言  |  开发板  |          SDK/固件版本          |
+|  Language  |  Boards  |          SDK/Firmware version          |
 | :----: | :------: | :----------------------------: |
 |   C    | MaixCube | kendryte-standalone-sdk v0.5.6 |
 | MaixPy | MaixCube |         maixpy v0.5.1          |
 
-## 运行结果
+## Result
 
 * C
 
@@ -137,12 +137,12 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
 	  <img src="img/lora_send_log.png" height="250"/><img src="img/lora_recv_log.png" height="250"/>
   </center>
 
-## 许可
+## LISENCE
 
-请查看 [LICENSE](LICENSE) 文件.
+See [LICENSE](LICENSE) file.
 
-## 相关信息
+## Other information
 
-| 版本号 |   编辑人   |
+| Version |   Editor   |
 | :----: | :--------: |
 |  v0.1  | vamoosebbf |
