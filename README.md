@@ -6,7 +6,7 @@
 
 ## Introduce
 
-<img src="img/sp_lora.png" style="padding-right:100px;" align="right" width="" height="500" />
+<img src="img/sp_lora.png" style="padding-right:100px;" align="right" width="500" />
 
 The SP_LoRa module uses M-XL8 module with LoRaTM modem and LoRa module with adjustable power amplifier. It has high performance and reliability and is connected by SP_MOD.
 
@@ -14,7 +14,7 @@ The SP_LoRa module uses M-XL8 module with LoRaTM modem and LoRa module with adju
 
 ## Pin figure
 
-<img src="img/back.png" height="300" />
+<img src="img/back.png" width="300" />
 
 ## Mode connection
 
