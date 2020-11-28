@@ -126,10 +126,10 @@ Configure IO port corresponding to MCU as SPI function pin.
 *See [SX1276_77_78_79.pdf](SX1276_77_78_79.pdf) for more information.*
 ## Runtime enviroments
 
-| Language |  Boards  |      SDK/Firmware version      |
-| :------: | :------: | :----------------------------: |
+| Language |  Boards  | SDK/Firmware version           |
+| :------: | :------: | :----------------------------- |
 |    C     | MaixCube | kendryte-standalone-sdk v0.5.6 |
-|  MaixPy  | MaixCube |         maixpy v0.5.1          |
+|  MaixPy  | MaixCube | maixpy v0.5.1                  |
 
 ## Result
 
