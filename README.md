@@ -4,6 +4,14 @@
 
 [English](README.md)
 
+## Directory Structure
+| Directory | Description                                   |
+| :-------: | :-------------------------------------------- |
+|    doc    | Reference documentation                       |
+|    img    | Images                                        |
+|  script   | Maixpy script example                         |
+|    src    | C program example based on the standalone sdk |
+
 ## Introduce
 
 <img src="img/sp_lora.png" style="padding-right:100px;" align="right" width="500" />
