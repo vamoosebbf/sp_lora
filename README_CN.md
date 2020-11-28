@@ -5,14 +5,14 @@
 [English](README.md)
 
 ## 介绍
-<img src="img/sp_lora.png" style="padding-right:50px;" align="right" width="500"/>
+<img src="img/sp_lora.png" style="padding-right:100px;" align="right" width="500"/>
 SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功率放大器的 LoRa 模块,它具有高性能和可靠性，采用 SP_MOD 进行连接。
 
 *查看[模块规格书](doc/SP-LoRa规格书V1.0.pdf)获取更多特性信息*
 
 ## 引脚图
 
-<img src="img/back.png" width="250" />
+<img src="img/back.png" width="300" />
 
 ## 接线方式
 
