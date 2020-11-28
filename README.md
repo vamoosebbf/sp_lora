@@ -6,30 +6,30 @@
 
 ## Introduce
 
-The SP_LoRa module uses M-XL8 module with LoRaTM modem and LoRa module with adjustable power amplifier. It has high performance and reliability and is connected by SP_MOD.
+<img src="img/sp_lora.png" style="padding-right:100px;" align="right" width="" height="500" />
 
-<img src="img/sp_lora.jpg" alt="sp_lora" height="400" />
+The SP_LoRa module uses M-XL8 module with LoRaTM modem and LoRa module with adjustable power amplifier. It has high performance and reliability and is connected by SP_MOD.
 
 *See [Specification](doc/SP-LoRa规格书V1.0.pdf) for more information*
 
+## Pin figure
+
+<img src="img/back.png" height="300" />
+
 ## Mode connection
 
-<img src="img/connection.png" height="200">
+<img src="img/connection.png" height="250">
 
 |   MCU:FUN(IO)   | SP_LCD |
 | :-------------: | :----: |
-| GPIOHS7(IO_7)   |  RST   |
-| SPI:MISO(IO_15) |  SO    |
+|  GPIOHS7(IO_7)  |  RST   |
+| SPI:MISO(IO_15) |   SO   |
 | SPI:SS0(IO_20)  |   CS   |
 | SPI:SCK(IO_21)  |  SCK   |
 | SPI:MOSI(IO_8)  |   SI   |
-| GPIOH(IO_6)     |   IRQ  |
+|   GPIOH(IO_6)   |  IRQ   |
 |    1.8-6.3V     |  3.3V  |
 |       GND       |  GND   |
-
-## Pin figure
-
-<img src="img/sp_lora_b.jpg" height="250" />
 
 ## MCU configuration
 
@@ -118,10 +118,10 @@ Configure IO port corresponding to MCU as SPI function pin.
 *See [SX1276_77_78_79.pdf](SX1276_77_78_79.pdf) for more information.*
 ## Runtime enviroments
 
-|  Language  |  Boards  |          SDK/Firmware version          |
-| :----: | :------: | :----------------------------: |
-|   C    | MaixCube | kendryte-standalone-sdk v0.5.6 |
-| MaixPy | MaixCube |         maixpy v0.5.1          |
+| Language |  Boards  |      SDK/Firmware version      |
+| :------: | :------: | :----------------------------: |
+|    C     | MaixCube | kendryte-standalone-sdk v0.5.6 |
+|  MaixPy  | MaixCube |         maixpy v0.5.1          |
 
 ## Result
 
@@ -144,5 +144,5 @@ See [LICENSE](LICENSE) file.
 ## Other information
 
 | Version |   Editor   |
-| :----: | :--------: |
-|  v0.1  | vamoosebbf |
+| :-----: | :--------: |
+|  v0.1   | vamoosebbf |

@@ -5,31 +5,29 @@
 [English](README.md)
 
 ## 介绍
-
+<img src="img/sp_lora.png" style="padding-right:100px;" align="right" width="" height="500" />
 SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功率放大器的 LoRa 模块,它具有高性能和可靠性，采用 SP_MOD 进行连接。
-
-<img src="img/sp_lora.jpg" alt="sp_lora" height="400" />
 
 *查看[模块规格书](doc/SP-LoRa规格书V1.0.pdf)获取更多特性信息*
 
+## 引脚图
+
+<img src="img/back.png" height="300" />
+
 ## 接线方式
 
-<img src="img/connection.png" height="200">
+<img src="img/connection.png" height="250">
 
 |   MCU:FUN(IO)   | SP_LCD |
 | :-------------: | :----: |
-| GPIOHS7(IO_7)   |  RST   |
-| SPI:MISO(IO_15) |  SO    |
+|  GPIOHS7(IO_7)  |  RST   |
+| SPI:MISO(IO_15) |   SO   |
 | SPI:SS0(IO_20)  |   CS   |
 | SPI:SCK(IO_21)  |  SCK   |
 | SPI:MOSI(IO_8)  |   SI   |
-| GPIOH(IO_6)     |   IRQ  |
+|   GPIOH(IO_6)   |  IRQ   |
 |    1.8-6.3V     |  3.3V  |
 |       GND       |  GND   |
-
-## 引脚图
-
-<img src="img/sp_lora_b.jpg" height="250" />
 
 ## MCU 配置
 
