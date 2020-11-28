@@ -12,7 +12,7 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
 
 ## 引脚图
 
-<img src="img/back.png" width="300" />
+<img src="img/back.png" width="250" />
 
 ## 接线方式
 
