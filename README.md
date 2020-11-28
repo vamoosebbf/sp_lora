@@ -2,7 +2,7 @@
 
 # SP_LoRa Module User Guide
 
-[English](README.md)
+[中文](README_CN.md)
 
 ## Directory Structure
 | Directory | Description                                   |
