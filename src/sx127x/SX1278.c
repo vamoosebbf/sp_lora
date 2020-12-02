@@ -29,7 +29,7 @@ void sx1278_hw_init(sx1278_hw_t *hw)
     gpiohs_set_pin(SPI_LORA_SX127X_CS_PIN_NUM, GPIO_PV_HIGH);
     gpiohs_set_pin(SPI_LORA_SX127X_RST_PIN_NUM, GPIO_PV_HIGH);
 
-    spi_init(SPI_DEVICE_1, SPI_WORK_MODE_0, SPI_FF_STANDARD, DATALENGTH, 0);
+    spi_init(SPI_INDEX, SPI_WORK_MODE_0, SPI_FF_STANDARD, DATALENGTH, 0);
 }
 
 void sx1278_hw_delay_ms(uint32_t delay_mses)
@@ -69,10 +69,11 @@ void sx1278_SPIBurstRead(sx1278_t *module, uint8_t addr, uint8_t *rxBuf,
                          uint8_t length)
 {
     uint8_t i;
-    if(length <= 1)
+    if (length <= 1)
     {
         return;
-    } else
+    }
+    else
     {
         spi_receive_data_standard(SPI_DEVICE_1, SPI_CHIP_SELECT_NSS, &addr, 1, rxBuf, length);
     }
@@ -82,10 +83,11 @@ void sx1278_SPIBurstWrite(sx1278_t *module, uint8_t addr, uint8_t *txBuf,
                           uint8_t length)
 {
     unsigned char i;
-    if(length <= 1)
+    if (length <= 1)
     {
         return;
-    } else
+    }
+    else
     {
         addr = addr | 0x80;
         spi_send_data_standard(SPI_DEVICE_1, SPI_CHIP_SELECT_NSS, &addr, 1, txBuf, length);
@@ -115,7 +117,7 @@ void sx1278_config(sx1278_t *module, uint8_t frequency, uint8_t power,
 
     sx1278_SPIWrite(module, LR_RegOcp, 0x0B); //RegOcp,Close Ocp
     sx1278_SPIWrite(module, LR_RegLna, 0x23); //RegLNA,High & LNA Enable
-    if(SX1278_SpreadFactor[LoRa_Rate] == 6)
+    if (SX1278_SpreadFactor[LoRa_Rate] == 6)
     { //SFactor=6
         uint8_t tmp;
         sx1278_SPIWrite(module,
@@ -131,7 +133,8 @@ void sx1278_config(sx1278_t *module, uint8_t frequency, uint8_t power,
         tmp |= 0x05;
         sx1278_SPIWrite(module, 0x31, tmp);
         sx1278_SPIWrite(module, 0x37, 0x0C);
-    } else
+    }
+    else
     {
         sx1278_SPIWrite(module,
                         LR_RegModemConfig1,
@@ -178,13 +181,13 @@ int sx1278_LoRaEntryRx(sx1278_t *module, uint8_t length, uint32_t timeout)
 
     module->packetLength = length;
 
-    sx1278_defaultConfig(module);                      //Setting base parameter
+    sx1278_defaultConfig(module); //Setting base parameter
 
-    sx1278_SPIWrite(module, REG_LR_PADAC, 0x84);       //Normal and RX
+    sx1278_SPIWrite(module, REG_LR_PADAC, 0x84); //Normal and RX
     // addr = sx1278_SPIRead(module, REG_LR_PADAC); //Read RxBaseAddr
     // LOGD(TAG, "ADDR: [REG_LR_PADAC-0x%02X:0x%02X]\r\n", REG_LR_PADAC, addr);
 
-    sx1278_SPIWrite(module, LR_RegHopPeriod, 0xFF);    //No FHSS
+    sx1278_SPIWrite(module, LR_RegHopPeriod, 0xFF); //No FHSS
     // addr = sx1278_SPIRead(module, LR_RegHopPeriod); //Read RxBaseAddr
     // LOGD(TAG, "ADDR: [LR_RegHopPeriod-0x%02X:0x%02X]\r\n", LR_RegHopPeriod, addr);
 
@@ -198,7 +201,7 @@ int sx1278_LoRaEntryRx(sx1278_t *module, uint8_t length, uint32_t timeout)
 
     sx1278_clearLoRaIrq(module);
     sx1278_SPIWrite(module, LR_RegPayloadLength, length); //Payload Length 21byte(this register must difine when the data long of one byte in SF is 6)
-    addr = sx1278_SPIRead(module, LR_RegPayloadLength); //Read RxBaseAddr
+    addr = sx1278_SPIRead(module, LR_RegPayloadLength);   //Read RxBaseAddr
     LOGD(TAG, "ADDR: [LR_RegPayloadLength-0x%02X:0x%02X]\r\n", LR_RegPayloadLength, addr);
 
     sx1278_SPIWrite(module, LR_RegFifoAddrPtr, addr); //RxBaseAddr->FiFoAddrPtr
@@ -206,14 +209,14 @@ int sx1278_LoRaEntryRx(sx1278_t *module, uint8_t length, uint32_t timeout)
     //sx1278_SPIWrite(module, LR_RegOpMode,0x05);	//Continuous Rx Mode //High Frequency Mode
     module->readBytes = 0;
 
-    while(1)
+    while (1)
     {
-        if((sx1278_SPIRead(module, LR_RegModemStat) & 0x04) == 0x04)
+        if ((sx1278_SPIRead(module, LR_RegModemStat) & 0x04) == 0x04)
         { //Rx-on going RegModemStat
             module->status = RX;
             return 1;
         }
-        if(--timeout == 0)
+        if (--timeout == 0)
         {
             sx1278_hw_reset(module->hw);
             sx1278_defaultConfig(module);
@@ -228,7 +231,7 @@ uint8_t sx1278_LoRaRxPacket(sx1278_t *module)
     unsigned char addr;
     unsigned char packet_size;
 
-    if(sx1278_hw_get_dio0(module->hw))
+    if (sx1278_hw_get_dio0(module->hw))
     {
         LOGD(TAG, "sx1278_LoRaRxPacket\r\n");
         memset(module->rxBuffer, 0x00, SX1278_MAX_PACKET);
@@ -236,10 +239,11 @@ uint8_t sx1278_LoRaRxPacket(sx1278_t *module)
         addr = sx1278_SPIRead(module, LR_RegFifoRxCurrentaddr); //last packet addr
         sx1278_SPIWrite(module, LR_RegFifoAddrPtr, addr);       //RxBaseAddr -> FiFoAddrPtr
 
-        if(module->LoRa_Rate == SX1278_LORA_SF_6)
+        if (module->LoRa_Rate == SX1278_LORA_SF_6)
         { //When SpreadFactor is six,will used Implicit Header mode(Excluding internal packet length)
             packet_size = module->packetLength;
-        } else
+        }
+        else
         {
             packet_size = sx1278_SPIRead(module, LR_RegRxNbBytes); //Number for received bytes
         }
@@ -269,16 +273,16 @@ int sx1278_LoRaEntryTx(sx1278_t *module, uint8_t length, uint32_t timeout)
     LOGD(TAG, "[%d]ADDR:0x%X", __LINE__, addr);
     sx1278_SPIWrite(module, LR_RegFifoAddrPtr, addr); //RegFifoAddrPtr
 
-    while(1)
+    while (1)
     {
         temp = sx1278_SPIRead(module, LR_RegPayloadLength);
-        if(temp == length)
+        if (temp == length)
         {
             module->status = TX;
             return 1;
         }
 
-        if(--timeout == 0)
+        if (--timeout == 0)
         {
             sx1278_hw_reset(module->hw);
             sx1278_defaultConfig(module);
@@ -292,9 +296,9 @@ int sx1278_LoRaTxPacket(sx1278_t *module, uint8_t *txBuffer, uint8_t length,
 {
     sx1278_SPIBurstWrite(module, 0x00, txBuffer, length);
     sx1278_SPIWrite(module, LR_RegOpMode, 0x8b); //Tx Mode
-    while(1)
+    while (1)
     {
-        if(sx1278_hw_get_dio0(module->hw))
+        if (sx1278_hw_get_dio0(module->hw))
         { //if(Get_NIRQ()) //Packet send over
             sx1278_SPIRead(module, LR_RegIrqFlags);
             sx1278_clearLoRaIrq(module); //Clear irq
@@ -302,7 +306,7 @@ int sx1278_LoRaTxPacket(sx1278_t *module, uint8_t *txBuffer, uint8_t length,
             return 1;
         }
 
-        if(--timeout == 0)
+        if (--timeout == 0)
         {
             sx1278_hw_reset(module->hw);
             sx1278_defaultConfig(module);
@@ -316,7 +320,7 @@ void sx1278_begin(sx1278_t *module, uint8_t frequency, uint8_t power,
                   uint8_t LoRa_Rate, uint8_t LoRa_BW, uint8_t packetLength)
 {
     sx1278_hw_init(module->hw);
-    uint32_t ret = spi_set_clk_rate(SPI_DEVICE_1, 10 * 1000 * 1000);
+    uint32_t ret = spi_set_clk_rate(SPI_INDEX, 10 * 1000 * 1000);
     LOGI(TAG, "spi clk is %d", ret);
     module->frequency = frequency;
     module->power = power;
@@ -328,10 +332,10 @@ void sx1278_begin(sx1278_t *module, uint8_t frequency, uint8_t power,
     sx1278_hw_reset(module->hw);
     uint8_t temp, addr;
     addr = 0x06;
-    while(1)
+    while (1)
     {
         spi_receive_data_standard(SPI_DEVICE_1, SPI_CHIP_SELECT_NSS, &addr, 1, &temp, 1);
-        if(0x6c == temp)
+        if (0x6c == temp)
         {
             break;
         }
@@ -345,7 +349,7 @@ void sx1278_begin(sx1278_t *module, uint8_t frequency, uint8_t power,
 int sx1278_transmit(sx1278_t *module, uint8_t *txBuf, uint8_t length,
                     uint32_t timeout)
 {
-    if(sx1278_LoRaEntryTx(module, length, timeout))
+    if (sx1278_LoRaEntryTx(module, length, timeout))
     {
         return sx1278_LoRaTxPacket(module, txBuf, length, timeout);
     }
@@ -364,7 +368,7 @@ uint8_t sx1278_available(sx1278_t *module)
 
 uint8_t sx1278_read(sx1278_t *module, uint8_t *rxBuf, uint8_t length)
 {
-    if(length != module->readBytes)
+    if (length != module->readBytes)
         length = module->readBytes;
     memcpy(rxBuf, module->rxBuffer, length);
     rxBuf[length] = '\0';

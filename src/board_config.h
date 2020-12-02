@@ -18,14 +18,15 @@
 
 #if ((BOARD == BOARD_MAIX_CUBE) || (BOARD == BOARD_MAIX_M1N))
 
-#define SPI_INDEX           1
-#define SPI_SCLK_RATE       600*1000
-#define SPI_CHIP_SELECT_NSS 0//SPI_CHIP_SELECT_0
 // SPMOD Interface
 // # [4|5] [7  |VCC] [RST|3V3]
 // # [3|6] [15 | 21] [SO |SCK]
 // # [2|7] [20 |  8] [CS |SI ]
 // # [1|8] [GND|  6] [GND|IRQ ]
+
+#define SPI_INDEX           1
+#define SPI_SCLK_RATE       600*1000
+#define SPI_CHIP_SELECT_NSS 0//SPI_CHIP_SELECT_0
 
 #define SPI_LORA_SX127X_CS_PIN_NUM      20
 #define SPI_LORA_SX127X_SCK_PIN_NUM     21

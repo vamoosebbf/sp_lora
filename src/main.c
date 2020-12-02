@@ -37,7 +37,6 @@ char buffer[64];
 int message;
 int message_length;
 
-
 void lora_test(uint8_t master);
 #define PIN_KEY 16
 #define GPIO_KEY 0
@@ -56,7 +55,7 @@ int main(void)
 
     fpioa_set_function(PIN_KEY, FUNC_GPIOHS0);
     gpiohs_set_drive_mode(GPIO_KEY, GPIO_DM_INPUT_PULL_DOWN);
-    // gpiohs_set_pin_edge(GPIO_KEY, GPIO_PE_FALLING);
+    // 模式取决于开始时按键的状态
 
     msleep(1500);
     uint8_t value = gpiohs_get_pin(GPIO_KEY);
@@ -69,7 +68,6 @@ int main(void)
     {
         lora_test(0);
     }
-
 
     printk(LOG_COLOR_W "-------------END---------------\r\n");
     return 0;

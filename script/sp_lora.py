@@ -425,22 +425,32 @@ def receive(lora):
                 print(e)
             print("with RSSI: {}\n".format(lora.packetRssi))
 
-
 if __name__ == "__main__":
     import time
     from machine import SPI
     from Maix import GPIO
     from fpioa_manager import fm
-
+    from micropython import const
+    
+    ################### config ###################
+    LORA_RST = const(20)
+    LORA_CS = const(7)
+    LORA_SPI_SCK = const(21)
+    LORA_SPI_MOSI = const(8)
+    LORA_SPI_MISO = const(15)
+    LORA_SPI_NUM = SPI.SPI1
+    LORA_SPI_FREQ_KHZ = const(100) 
+    ##############################################
+    
     # gpio init
-    fm.register(20, fm.fpioa.GPIOHS20, force=True) # RST
-    fm.register(7, fm.fpioa.GPIOHS7, force=True) # CS
+    fm.register(LORA_RST, fm.fpioa.GPIOHS20, force=True) # RST
+    fm.register(LORA_CS, fm.fpioa.GPIOHS7, force=True) # CS
     # set gpiohs work mode to output mode
     cs = GPIO(GPIO.GPIOHS20, GPIO.OUT)
     rst = GPIO(GPIO.GPIOHS7, GPIO.IN)
 
-    spi1 = SPI(SPI.SPI1, mode=SPI.MODE_MASTER, baudrate=100 * 1000,
-               polarity=0, phase=0, bits=8, firstbit=SPI.MSB, sck=21, mosi=8, miso = 15)
+    spi1 = SPI(LORA_SPI_NUM, mode=SPI.MODE_MASTER, baudrate=LORA_SPI_FREQ_KHZ * 1000,
+               polarity=0, phase=0, bits=8, firstbit=SPI.MSB, sck=LORA_SPI_SCK, mosi=LORA_SPI_MOSI, miso = LORA_SPI_MISO)
     lora = SX127x(spi=spi1, pin_ss=cs)
 
     # lora reset 

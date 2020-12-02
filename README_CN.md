@@ -14,8 +14,10 @@
 |  src   | C裸机程序示例  |
 
 ## 介绍
+
 <img src="img/sp_lora.png" style="padding-right:100px;" align="right" width="500"/>
-SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功率放大器的 LoRa 模块，具有高性能和可靠性，采用 SP_MOD 进行连接。
+
+SP_LoRa 模块使用 M-XL8 模组, 其内置 LoRaTM 调制解调器和可调功率放大器的 LoRa 模块, 具有高性能和可靠性, 采用 SP_MOD 进行连接.
 
 *查看[模块规格书](doc/SP-LoRa规格书V1.0.pdf)获取更多特性信息*
 
@@ -42,7 +44,7 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
 
 ### IO 口配置
 
-将 MCU 原理图对应的 IO 口配置为 SPI 功能引脚。
+将 MCU 原理图对应的 IO 口配置为 SPI 功能引脚.
 
 * C 示例
 
@@ -89,7 +91,7 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
 
 * 流程
 
-  1. 创建LoRa对象并初始化
+  1. 创建 LoRa 对象并初始化
   2. 发送或者接收数据
 
 * C 示例
@@ -122,7 +124,9 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
     ########sender###########
     # send(lora)
   ```
+
 *更多详细信息请参考[SX1276_77_78_79.pdf](SX1276_77_78_79.pdf).*
+
 ## 运行环境
 
 |  语言  |  开发板  | SDK/固件版本                   |
@@ -143,6 +147,44 @@ SP_LoRa 模块使用 M-XL8 模组，其内置 LoRaTM 调制解调器和可调功
   <center class="third">
 	  <img src="img/lora_send_log.png" height="250"/><img src="img/lora_recv_log.png" height="250"/>
   </center>
+
+## 移植
+
+修改以下参数即可.
+
+* C
+  
+  ```c
+    // board_config.h
+    #define SPI_INDEX           1
+    #define SPI_SCLK_RATE       600*1000
+    #define SPI_CHIP_SELECT_NSS 0//SPI_CHIP_SELECT_0
+
+    #define SPI_LORA_SX127X_CS_PIN_NUM      20
+    #define SPI_LORA_SX127X_SCK_PIN_NUM     21
+    #define SPI_LORA_SX127X_MOSI_PIN_NUM    8
+    #define SPI_LORA_SX127X_MISO_PIN_NUM    15
+
+    #define SPI_LORA_SX127X_IRQ_PIN_NUM     6
+    #define SPI_LORA_SX127X_RST_PIN_NUM     7
+
+    #define SPI_LORA_SX127X_IQR_GPIO_NUM    6
+    #define SPI_LORA_SX127X_RST_GPIO_NUM    7
+  ```
+
+* MaixPy
+
+  ```python
+    ################### config ###################
+    LORA_RST = const(20)
+    LORA_CS = const(7)
+    LORA_SPI_SCK = const(21)
+    LORA_SPI_MOSI = const(8)
+    LORA_SPI_MISO = const(15)
+    LORA_SPI_NUM = SPI.SPI1
+    LORA_SPI_FREQ_KHZ = const(100) 
+    ##############################################
+  ```
 
 ## 许可
 

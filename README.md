@@ -124,6 +124,7 @@ Configure IO port corresponding to MCU as SPI function pin.
     # send(lora)
   ```
 *See [SX1276_77_78_79.pdf](SX1276_77_78_79.pdf) for more information.*
+
 ## Runtime enviroments
 
 | Language |  Boards  | SDK/Firmware version           |
@@ -144,6 +145,45 @@ Configure IO port corresponding to MCU as SPI function pin.
   <center class="third">
 	  <img src="img/lora_send_log.png" height="250"/><img src="img/lora_recv_log.png" height="250"/>
   </center>
+
+## Transplant
+
+The following parameters need to be modified.
+
+* C
+  
+  ```c
+    // board_config.h
+    #define SPI_INDEX           1
+    #define SPI_SCLK_RATE       600*1000
+    #define SPI_CHIP_SELECT_NSS 0//SPI_CHIP_SELECT_0
+
+    #define SPI_LORA_SX127X_CS_PIN_NUM      20
+    #define SPI_LORA_SX127X_SCK_PIN_NUM     21
+    #define SPI_LORA_SX127X_MOSI_PIN_NUM    8
+    #define SPI_LORA_SX127X_MISO_PIN_NUM    15
+
+    #define SPI_LORA_SX127X_IRQ_PIN_NUM     6
+    #define SPI_LORA_SX127X_RST_PIN_NUM     7
+
+    #define SPI_LORA_SX127X_IQR_GPIO_NUM    6
+    #define SPI_LORA_SX127X_RST_GPIO_NUM    7
+  ```
+
+* MaixPy
+
+  ```python
+    ################### config ###################
+    LORA_RST = const(20)
+    LORA_CS = const(7)
+    LORA_SPI_SCK = const(21)
+    LORA_SPI_MOSI = const(8)
+    LORA_SPI_MISO = const(15)
+    LORA_SPI_NUM = SPI.SPI1
+    LORA_SPI_FREQ_KHZ = const(100) 
+    ##############################################
+  ```
+
 
 ## LISENCE
 
