@@ -441,7 +441,7 @@ if __name__ == "__main__":
     LORA_SPI_NUM = SPI.SPI1
     LORA_SPI_FREQ_KHZ = const(100) 
     ##############################################
-    
+
     # gpio init
     fm.register(LORA_RST, fm.fpioa.GPIOHS20, force=True) # RST
     fm.register(LORA_CS, fm.fpioa.GPIOHS7, force=True) # CS
@@ -461,10 +461,10 @@ if __name__ == "__main__":
     
     lora.init()
     
-#######receiver###########
+####### receiver ###########
     receive(lora)
 
-########sender###########
+######## sender ###########
     # send(lora)
 
 
